@@ -22,10 +22,10 @@
             <p>Reload for another joke!</p>
 
             <div class="content" id="chuck-norris">
-                <div class="axios">
 
-                </div>
             </div>
+
+            <button id="reload">Reload the Joke</button>
 
             <div class="content" id="pokemonQuest">
                 <div class="axios">
@@ -34,10 +34,7 @@
             </div>
 
             <div class="content" id="github-profile">
-                <div class="axios">
-
-                </div>
-            </div>
+            </div>            
         </div>
 
     </section>
@@ -48,8 +45,12 @@
 
     <script>
 
+        document.querySelector('#reload').addEventListener("click", function () {
+            fetchChuckNorrisJSON();
+        });
+
         //////////////////////////////// chuck-norris
-        function fetchAdditionalHTML() {
+        function fetchChuckNorrisJSON() {
             const url = 'https://api.chucknorris.io/jokes/random';
             fetch(url)
                 .then(response => response.json())
@@ -62,8 +63,8 @@
                 });
         }
 
-        setTimeout(fetchAdditionalHTML, 1500);
-        // fetchAdditionalHTML();
+        setTimeout(fetchChuckNorrisJSON, 1500);
+        // fetchChuckNorrisJSON();
 
         //////////////////////////////// pokemonQuest
         function fetchPokemonJSON() {
