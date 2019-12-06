@@ -27,8 +27,16 @@
                 </div>
             </div>
 
-            <div class="content" id="additional-content">
+            <div class="content" id="pokemonQuest">
+                <div class="axios">
 
+                </div>
+            </div>
+
+            <div class="content" id="github-profile">
+                <div class="axios">
+
+                </div>
             </div>
         </div>
 
@@ -40,18 +48,61 @@
 
     <script>
 
+        //////////////////////////////// chuck-norris
         function fetchAdditionalHTML() {
-            fetch('https://api.chucknorris.io/')
-                .then(function (response) {
-                    return response.text();
-                })
-                .then(function (htmlContent) {
-                    console.log('received data:', htmlContent);
-                    document.querySelector('#additional-content').innerHTML = htmlContent;
+            const url = 'https://api.chucknorris.io/jokes/random';
+            fetch(url)
+                .then(response => response.json())
+                .then(chuck => {
+                    const chuckHtml = `
+                    <p>${chuck.value}</p>
+                    <img src="${chuck.icon_url}">
+                `;
+                    document.querySelector('#chuck-norris').innerHTML = chuckHtml;
                 });
         }
 
         setTimeout(fetchAdditionalHTML, 1500);
+        // fetchAdditionalHTML();
+
+        //////////////////////////////// pokemonQuest
+        function fetchPokemonJSON() {
+
+            const pokemonId = 44;
+            const url = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+            axios.get(url)
+                .then(response => response.data)
+                .then(pokemon => {
+                    //console.log('data decoded from JSON:', pokemon);
+
+                    const pokemonHtml = `
+                        <p><strong>${pokemon.name}</strong></p>
+                        <img src="${pokemon.sprites.front_shiny}" />
+                    `;
+                    document.querySelector('#pokemonQuest').innerHTML = pokemonHtml;
+                });
+        }
+
+
+        fetchPokemonJSON();
+
+        ////////////////////////////////////// github-profile
+        function fetchGitHubProfileJSON() {
+            const username = 'GuiAndrew';
+            const url = `https://api.github.com/users/${username}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(profile => {
+                    const profileHtml = `
+                        <p><strong>${profile.name}</strong></p>
+                        <img src="${profile.avatar_url}" />
+                    `;
+                    document.querySelector('#github-profile').innerHTML = profileHtml;
+                });
+        }
+
+
+        fetchGitHubProfileJSON();
 
     </script>
 </body>
